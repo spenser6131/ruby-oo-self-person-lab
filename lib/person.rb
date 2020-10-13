@@ -1,7 +1,7 @@
 class Person
   
-  attr_accessor :bank_account, :happiness, :hygiene
-  attr_reader :name
+  attr_accessor :bank_account
+  attr_reader :name, :happiness, :hygiene
 
   def initialize(name)
     @name = name
@@ -10,30 +10,24 @@ class Person
     @hygiene = 8
   end
 
-  def happiness
-    if @happiness > 10
-      @happiness = 10
-    elsif @happiness < 0
-      @happiness = 0
-    else @happiness
-    end
+  def happiness=(num)
+    @happiness = num
+    @happiness = 10 if @happiness > 10
+    @happiness = 0 if @happiness < 0
   end
 
-  def hygiene
-    if @hygiene > 10
-      @hygiene = 10
-    elsif @hygiene < 0
-      @hygiene = 0
-    else @hygiene
-    end
+  def hygiene=(num)
+    @hygiene = num
+    @hygiene = 10 if @hygiene > 10
+    @hygiene = 0 if @hygiene < 0
   end
 
   def happy?
-    @happiness > 7 ? true : false
+    happiness > 7
   end
 
   def clean?
-    @hygiene > 7 ? true : false
+    hygiene > 7
   end
 
   def get_paid(salary)
@@ -53,8 +47,7 @@ class Person
   end
 
   def call_friend(friend)
-    self.happiness += 3
-    friend.happiness += 3
+    [friend, self].each {|person| person.happiness += 3}
     "Hi #{friend.name}! It's #{self.name}. How are you?"
   end
 
